@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Poručivanje - BMW Performance Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="checkout-header">
+        <a href="index.html" class="back-link">← Nazad na prodavnicu</a>
+        <h1>Poručivanje</h1>
+      </header>
+
+      <div class="checkout-container">
+        <div class="checkout-main">
+          <form id="checkoutForm" class="checkout-form">
+            <section class="form-section">
+              <h2>Lični podaci</h2>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">Ime *</label>
+                  <input type="text" id="firstName" name="firstName" required />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Prezime *</label>
+                  <input type="text" id="lastName" name="lastName" required />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Telefon *</label>
+                  <input type="tel" id="phone" name="phone" required />
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h2>Adresa isporuke</h2>
+              <div class="form-group">
+                <label for="address">Ulica i broj *</label>
+                <input type="text" id="address" name="address" required />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">Grad *</label>
+                  <input type="text" id="city" name="city" required />
+                </div>
+                <div class="form-group">
+                  <label for="postalCode">Poštanski broj *</label>
+                  <input type="text" id="postalCode" name="postalCode" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="country">Država *</label>
+                <select id="country" name="country" required>
+                  <option value="">Izaberi državu</option>
+                  <option value="RS">Srbija</option>
+                  <option value="BA">Bosna i Hercegovina</option>
+                  <option value="HR">Hrvatska</option>
+                  <option value="ME">Crna Gora</option>
+                  <option value="MK">Severna Makedonija</option>
+                  <option value="SI">Slovenija</option>
+                  <option value="AL">Albanija</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h2>Način plaćanja</h2>
+              <div class="payment-methods">
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="cash" checked />
+                  <span>Gotovina pri preuzimanju</span>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="card" />
+                  <span>Kartica (Visa/Mastercard)</span>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment" value="bank" />
+                  <span>Bankovni transfer</span>
+                </label>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h2>Napomena</h2>
+              <div class="form-group">
+                <label for="notes">Dodatne napomene (opciono)</label>
+                <textarea id="notes" name="notes" rows="4" placeholder="Specijalne instrukcije za isporuku ili dodatne informacije..."></textarea>
+              </div>
+            </section>
+
+            <div class="form-actions">
+              <button type="submit" class="btn primary">Potvrdi porudžbinu</button>
+              <a href="index.html" class="btn ghost">Otkaži</a>
+            </div>
+          </form>
+        </div>
+
+        <aside class="checkout-summary">
+          <div class="summary-header">
+            <h2>Pregled porudžbine</h2>
+          </div>
+          <div id="checkoutItems" class="checkout-items"></div>
+          <div class="summary-totals">
+            <div class="total-row">
+              <span>Međuzbir:</span>
+              <span id="subtotal">€0.00</span>
+            </div>
+            <div class="total-row">
+              <span>Dostava:</span>
+              <span id="shipping">€15.00</span>
+            </div>
+            <div class="total-row total-final">
+              <span>Ukupno:</span>
+              <span id="total">€0.00</span>
+            </div>
+          </div>
+          <div class="summary-info">
+            <p>📦 Isporuka u roku od 24-48h</p>
+            <p>🔒 Sigurna transakcija</p>
+            <p>↩️ Mogućnost vraćanja u roku od 14 dana</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script src="checkout.js"></script>
+  </body>
+</html>
+

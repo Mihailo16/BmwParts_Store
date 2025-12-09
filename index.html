@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BMW Performance Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">BMW Performance Store</p>
+          <h1>Delovi spremni za sledeću vožnju</h1>
+          <p class="lead">
+            Svaki artikal je VIN verifikovan i spreman za isporuku uz mogućnost ugradnje u
+            sertifikovanim servisima.
+          </p>
+          <div class="hero-cta">
+            <button class="btn primary">Aktuelne ponude</button>
+            <button class="btn ghost">Kontakt servis</button>
+          </div>
+          <div class="hero-stats">
+            <article>
+              <strong>3200+</strong>
+              <span>isporuka 2024.</span>
+            </article>
+            <article>
+              <strong>4.9/5</strong>
+              <span>prosečna ocena</span>
+            </article>
+            <article>
+              <strong>M Certified</strong>
+              <span>zvanični partner</span>
+            </article>
+          </div>
+        </div>
+        <div class="hero-card">
+          <p>Express VIN provera</p>
+          <h3>Unesi šasiju, dobij preporuku u roku od 15 min.</h3>
+          <div class="vin-input-group">
+            <input type="text" id="vinInput" placeholder="Unesi VIN broj (17 karaktera)" maxlength="17" />
+            <button class="btn secondary" id="vinCheckBtn">Proveri</button>
+            <button class="btn ghost" id="vinBimmerWorkBtn" title="Otvori bimmer.work za detaljnu proveru">bimmer.work</button>
+          </div>
+          <p id="vinResult" class="vin-result"></p>
+        </div>
+      </header>
+
+      <section class="filters">
+        <div class="filters-header">
+          <h2>Filtriraj proizvode</h2>
+          <button class="btn ghost small" id="resetFiltersBtn">Resetuj sve</button>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Model vozila</label>
+          <div class="model-filters" id="modelFilters"></div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Kategorija</label>
+          <div class="categories" id="categoryPills"></div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Brzi filteri</label>
+          <div class="quick-filters" id="quickFilters"></div>
+        </div>
+
+        <div class="filter-group search-group">
+          <div class="filters-row">
+            <input id="searchInput" type="search" placeholder="Pretraži po nazivu ili OEM broju..." />
+            <select id="sortSelect">
+              <option value="recommended">Preporučeno</option>
+              <option value="price-asc">Cena • rastuće</option>
+              <option value="price-desc">Cena • opadajuće</option>
+              <option value="name-asc">Naziv A-Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results-count" id="resultsCount"></div>
+      </section>
+
+      <section class="content">
+        <div class="product-grid" id="productGrid"></div>
+        <aside class="cart-panel">
+          <div class="cart-header">
+            <div>
+              <h2>Korpa</h2>
+              <p id="cartSubtitle">Prazna je, dodaj nešto novo.</p>
+            </div>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+          <div class="cart-items" id="cartItems"></div>
+          <div class="cart-total">
+            <div>
+              <p>Ukupno</p>
+              <strong id="cartTotal">€0.00</strong>
+            </div>
+            <button class="btn primary" id="checkoutBtn" disabled>Zaključi</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="service-badges">
+        <article>
+          <h4>VIN provereni delovi</h4>
+          <p>Garantujemo 100% OEM kompatibilnost.</p>
+        </article>
+        <article>
+          <h4>Ekspres isporuka</h4>
+          <p>24h u Srbiji, 72h region.</p>
+        </article>
+        <article>
+          <h4>Partner servisi</h4>
+          <p>Više od 12 sertifikovanih lokacija.</p>
+        </article>
+        <article>
+          <h4>Loyalty program</h4>
+          <p>3% cashback na svaku porudžbinu.</p>
+        </article>
+      </section>
+
+      <section class="newsletter">
+        <div>
+          <p class="eyebrow">Proaktivne preporuke</p>
+          <h2>Planiraj servis bez iznenađenja</h2>
+          <p>Obaveštavamo te kada artikli za tvoj model stignu na lager i šaljemo personalizovane popuste.</p>
+        </div>
+        <form id="newsletterForm">
+          <input type="email" placeholder="Email ili BMW ID" required />
+          <button class="btn secondary">Aktiviraj podsetnik</button>
+        </form>
+      </section>
+
+      <footer class="page-footer">
+        <p>© <span id="year"></span> BMW Performance Store · VIN podrška 09-21h</p>
+        <div>
+          <a href="#">Politika privatnosti</a>
+          <a href="#">Uslovi kupovine</a>
+          <a href="#">Servisna mapa</a>
+        </div>
+      </footer>
+    </div>
+
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <script src="scrpit.js"></script>
+  </body>
+</html>

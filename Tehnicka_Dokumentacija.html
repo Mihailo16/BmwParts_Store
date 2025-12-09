@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tehnička Dokumentacija - BMW Performance Store</title>
+    <style>
+        body {
+            font-family: 'Calibri', 'Arial', sans-serif;
+            line-height: 1.6;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+            color: #333;
+        }
+        h1 {
+            color: #0066cc;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            page-break-after: avoid;
+        }
+        h2 {
+            color: #0066cc;
+            margin-top: 30px;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #333;
+            margin-top: 20px;
+            page-break-after: avoid;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-left: 4px solid #0066cc;
+            overflow-x: auto;
+            page-break-inside: avoid;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .toc {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 8px 0;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tehnička Dokumentacija</h1>
+    <h2>BMW Performance Store - Web Prodavnica</h2>
+    
+    <div class="toc">
+        <h3>Sadržaj</h3>
+        <ul>
+            <li><a href="#uvod">1. Uvod i Pregled Projekta</a></li>
+            <li><a href="#arhitektura">2. Arhitektura i Struktura Fajlova</a></li>
+            <li><a href="#tehnologije">3. Korišćene Tehnologije</a></li>
+            <li><a href="#funkcionalnosti">4. Funkcionalnosti</a></li>
+            <li><a href="#struktura-podataka">5. Struktura Podataka</a></li>
+            <li><a href="#vin-dekodiranje">6. VIN Dekodiranje</a></li>
+            <li><a href="#korpa-checkout">7. Korpa i Proces Naplate</a></li>
+            <li><a href="#ui-ux">8. Komponente Korisničkog Interfejsa i Iskustva</a></li>
+            <li><a href="#responsive">9. Responzivni Dizajn</a></li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2 id="uvod">1. Uvod i Pregled Projekta</h2>
+    
+    <h3>1.1 Opis Projekta</h3>
+    <p>BMW Performance Store je moderna web prodavnica delova za BMW vozila, razvijena kao statička web aplikacija koristeći čisti HTML, CSS i JavaScript. Aplikacija omogućava korisnicima da pretražuju, filtriraju i kupuju originalne BMW delove sa VIN verifikacijom kompatibilnosti.</p>
+    
+    <h3>1.2 Ključne Karakteristike</h3>
+    <ul>
+        <li><strong>VIN Dekodiranje:</strong> Automatsko prepoznavanje modela vozila iz VIN broja</li>
+        <li><strong>Napredno Filtriranje:</strong> Filtri po modelu, kategoriji, brzi filteri i pretraga</li>
+        <li><strong>Dinamička Korpa:</strong> Ažuriranje korpe u realnom vremenu sa lokalnim skladištenjem</li>
+        <li><strong>Proces Naplate:</strong> Kompletan formular za poručivanje sa validacijom</li>
+        <li><strong>Responzivni Dizajn:</strong> Optimizovano za sve uređaje</li>
+        <li><strong>Moderna UI:</strong> Tamna tema sa gradijentima i animacijama</li>
+    </ul>
+
+    <h3>1.3 Podržani Modeli</h3>
+    <p>Aplikacija podržava sledeće BMW modele:</p>
+    <ul>
+        <li>E28 (5 serija, 1981-1988)</li>
+        <li>E30 (3 serija, 1982-1994)</li>
+        <li>E46 (3 serija, 1998-2006)</li>
+        <li>E60 (5 serija, 2003-2010)</li>
+        <li>E90 (3 serija sedan, 2005-2012)</li>
+        <li>E91 (3 serija touring, 2005-2012)</li>
+        <li>E92 (3 serija coupe, 2006-2013)</li>
+        <li>F80 (M3, 2014-2018)</li>
+        <li>F87 (M2, 2015-2021)</li>
+        <li>G80 (M3, 2021+)</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2 id="arhitektura">2. Arhitektura i Struktura Fajlova</h2>
+    
+    <h3>2.1 Struktura Direktorijuma</h3>
+    <pre>
+Web_Prodavnica/
+├── index.html          # Glavna stranica prodavnice
+├── checkout.html       # Stranica za poručivanje
+├── style.css          # Glavni CSS fajl sa svim stilovima
+├── scrpit.js          # Glavna JavaScript logika
+├── checkout.js        # JavaScript za checkout stranicu
+├── Logo.png          # Logo kompanije
+└── Slike/            # Folder sa slikama proizvoda
+    ├── [OEM_BROJ].jpg # Slike proizvoda (naziv = OEM broj)
+    └── ...
+    </pre>
+
+    <h3>2.2 Opis Fajlova</h3>
+    
+    <table>
+        <tr>
+            <th>Fajl</th>
+            <th>Opis</th>
+            <th>Linija Koda</th>
+        </tr>
+        <tr>
+            <td><code>index.html</code></td>
+            <td>Glavna HTML struktura sa glavnom sekcijom, filterima, mrežom proizvoda, korpom i footerom</td>
+            <td>164 linije</td>
+        </tr>
+        <tr>
+            <td><code>style.css</code></td>
+            <td>Kompletan CSS sa tamnom temom, responzivnim dizajnom, animacijama i komponentama</td>
+            <td>1079 linija</td>
+        </tr>
+        <tr>
+            <td><code>scrpit.js</code></td>
+            <td>Glavna logika: proizvodi, state management, filtriranje, VIN dekodiranje, korpa</td>
+            <td>1252 linije</td>
+        </tr>
+        <tr>
+            <td><code>checkout.html</code></td>
+            <td>HTML struktura za formular naplate sa ličnim podacima, adresom i načinom plaćanja</td>
+            <td>145 linija</td>
+        </tr>
+        <tr>
+            <td><code>checkout.js</code></td>
+            <td>Logika za učitavanje korpe, prikaz stavki, kalkulaciju i slanje porudžbine</td>
+            <td>130 linija</td>
+        </tr>
+    </table>
+
+    <h3>2.3 Arhitektura Aplikacije</h3>
+    <p>Aplikacija koristi <strong>vanilla JavaScript</strong> sa sledećom arhitekturom:</p>
+    <ul>
+        <li><strong>State Management:</strong> Centralizovani <code>state</code> objekat za upravljanje aplikacijom</li>
+        <li><strong>DOM Manipulation:</strong> Direktna manipulacija DOM elemenata bez frameworka</li>
+        <li><strong>Event-Driven:</strong> Event listeneri za korisničke interakcije</li>
+        <li><strong>Local Storage:</strong> Trajno skladištenje korpe i porudžbina</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2 id="tehnologije">3. Korišćene Tehnologije</h2>
+    
+    <h3>3.1 Frontend Tehnologije</h3>
+    <table>
+        <tr>
+            <th>Tehnologija</th>
+            <th>Verzija</th>
+            <th>Namena</th>
+        </tr>
+        <tr>
+            <td>HTML5</td>
+            <td>5.0</td>
+            <td>Struktura stranica, semantički elementi</td>
+        </tr>
+        <tr>
+            <td>CSS3</td>
+            <td>3.0</td>
+            <td>Stilizovanje, Grid, Flexbox, CSS Variables, Animacije</td>
+        </tr>
+        <tr>
+            <td>JavaScript (ES6+)</td>
+            <td>ES2020</td>
+            <td>Logika aplikacije, DOM manipulacija, Fetch API</td>
+        </tr>
+        <tr>
+            <td>Google Fonts</td>
+            <td>-</td>
+            <td>Space Grotesk font family</td>
+        </tr>
+    </table>
+
+    <h3>3.2 Spoljne Biblioteke i API-ji</h3>
+    <ul>
+        <li><strong>NHTSA VIN Decoder API:</strong> Za dekodiranje VIN brojeva (rezervna opcija)</li>
+        <li><strong>Bimmer.work:</strong> Integracija za detaljno VIN dekodiranje (link/button)</li>
+        <li><strong>Intl.NumberFormat:</strong> Formatiranje cena u srpskom formatu</li>
+    </ul>
+
+    <h3>3.3 API-ji Pretraživača</h3>
+    <ul>
+        <li><strong>localStorage:</strong> Trajno skladištenje korpe i porudžbina</li>
+        <li><strong>Fetch API:</strong> HTTP zahtevi za VIN dekodiranje</li>
+        <li><strong>DOM API:</strong> Manipulacija i ažuriranje elemenata</li>
+        <li><strong>Event API:</strong> Rukovanje korisničkim interakcijama</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2 id="funkcionalnosti">4. Funkcionalnosti</h2>
+    
+    <h3>4.1 Pretraga i Filtriranje</h3>
+    <p>Aplikacija nudi višeslojno filtriranje proizvoda:</p>
+    
+    <h4>4.1.1 Filtriranje po Modelu</h4>
+    <ul>
+        <li>Dinamički generisani filteri za sve dostupne modele</li>
+        <li>Automatsko postavljanje filtera nakon VIN dekodiranja</li>
+        <li>Mogućnost resetovanja na "Svi modeli"</li>
+    </ul>
+
+    <h4>4.1.2 Filtriranje po Kategoriji</h4>
+    <ul>
+        <li>Kategorije se dinamički generišu na osnovu filtriranih proizvoda</li>
+        <li>Podržane kategorije: Motor, Kočnice, Eksterijer, Enterijer, Elektronika, itd.</li>
+        <li>Kategorije se prilagođavaju kada je izabran određeni model</li>
+    </ul>
+
+    <h4>4.1.3 Brzi Filteri</h4>
+    <ul>
+        <li><strong>Novo:</strong> Prikazuje najnovije proizvode</li>
+        <li><strong>Top izbor:</strong> Prikazuje najpopularnije proizvode</li>
+        <li><strong>Svi proizvodi:</strong> Resetuje brze filtere</li>
+    </ul>
+
+    <h4>4.1.4 Pretraga</h4>
+    <ul>
+        <li>Pretraga po nazivu proizvoda</li>
+        <li>Pretraga po OEM broju</li>
+        <li>Filtriranje u realnom vremenu dok korisnik kuca</li>
+    </ul>
+
+    <h4>4.1.5 Sortiranje</h4>
+    <ul>
+        <li><strong>Preporučeno:</strong> Podrazumevani redosled</li>
+        <li><strong>Cena • rastuće:</strong> Od najjeftinijeg ka najskupljem</li>
+        <li><strong>Cena • opadajuće:</strong> Od najskupljeg ka najjeftinijem</li>
+        <li><strong>Naziv A-Z:</strong> Alfabetski redosled</li>
+    </ul>
+
+    <h3>4.2 Prikaz Proizvoda</h3>
+    <ul>
+        <li><strong>Mrežni Raspored:</strong> Responzivna mreža sa automatskim prilagođavanjem</li>
+        <li><strong>Kartice Proizvoda:</strong> Slika, naziv, cena, OEM broj, model, kategorija</li>
+        <li><strong>Modal Detalji:</strong> Klik na proizvod otvara prozor sa detaljnim informacijama</li>
+        <li><strong>Broj Rezultata:</strong> Dinamički prikaz broja filtriranih proizvoda</li>
+    </ul>
+
+    <h3>4.3 Korpa za Kupovinu</h3>
+    <ul>
+        <li><strong>Dodavanje u Korpu:</strong> Direktno sa kartice ili iz modala</li>
+        <li><strong>Promena Količine:</strong> +/- dugmad za povećanje/smanjenje</li>
+        <li><strong>Uklanjanje:</strong> Dugme za brisanje stavke iz korpe</li>
+        <li><strong>Ukupna Cena:</strong> Automatski kalkulisanje ukupne vrednosti</li>
+        <li><strong>Fiksni Panel:</strong> Korpa ostaje vidljiva tokom skrolovanja</li>
+        <li><strong>Trajnost:</strong> Korpa se čuva u localStorage</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2 id="struktura-podataka">5. Struktura Podataka</h2>
+    
+    <h3>5.1 Struktura Proizvoda</h3>
+    <pre>
+{
+  id: number,              // Jedinstveni identifikator
+  oem: string,            // OEM broj proizvoda
+  name: string,           // Naziv proizvoda (na srpskom)
+  price: number,          // Cena u EUR
+  category: string,       // Kategorija (Motor, Kočnice, itd.)
+  model: string,          // Model vozila (E30, E46, itd.)
+  description: string,    // Detaljan opis proizvoda
+  image: string          // Putanja do slike (slike/OEM_BROJ.jpg)
+}
+    </pre>
+
+    <h3>5.2 State Objekat</h3>
+    <pre>
+{
+  category: string,       // Trenutno izabrana kategorija ('Sve' ili naziv)
+  sort: string,          // Način sortiranja ('recommended', 'price-asc', itd.)
+  search: string,        // Tekst pretrage
+  selectedModel: string, // Izabrani model vozila (null = svi modeli)
+  quickFilter: string    // Brzi filter ('novo', 'top', null)
+}
+    </pre>
+
+    <h3>5.3 Struktura Korpe</h3>
+    <pre>
+[
+  {
+    id: number,          // ID proizvoda
+    quantity: number     // Količina
+  },
+  ...
+]
+    </pre>
+
+    <h3>5.4 Struktura Porudžbine</h3>
+    <pre>
+{
+  personalInfo: {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string
+  },
+  address: {
+    address: string,
+    city: string,
+    postalCode: string,
+    country: string
+  },
+  payment: string,      // 'cash', 'card', 'bank'
+  notes: string,        // Opcione napomene
+  items: Array,         // Stavke iz korpe
+  timestamp: string     // ISO vremenska oznaka porudžbine
+}
+    </pre>
+
+    <h3>5.5 VIN Struktura</h3>
+    <p>VIN (Vehicle Identification Number) se sastoji od 17 karaktera:</p>
+    <ul>
+        <li><strong>Pozicije 1-3 (WMI):</strong> World Manufacturer Identifier (npr. WBA za BMW)</li>
+        <li><strong>Pozicije 4-5:</strong> Model kod (npr. VF za 3 serija sedan)</li>
+        <li><strong>Pozicija 6:</strong> Tip vozila (1=sedan, 3=sedan, 5=touring, itd.)</li>
+        <li><strong>Pozicija 10:</strong> Godina proizvodnje</li>
+        <li><strong>Pozicije 11-17:</strong> Serijski broj</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2 id="vin-dekodiranje">6. VIN Dekodiranje</h2>
+    
+    <h3>6.1 Pregled Funkcionalnosti</h3>
+    <p>VIN dekodiranje je jedna od ključnih funkcionalnosti aplikacije. Omogućava automatsko prepoznavanje modela vozila iz VIN broja i automatsko filtriranje proizvoda.</p>
+
+    <h3>6.2 Validacija VIN Formata</h3>
+    <p>Funkcija <code>validateVinFormat()</code> proverava:</p>
+    <ul>
+        <li>Dužinu VIN broja (mora biti tačno 17 karaktera)</li>
+        <li>Dozvoljene karaktere (samo alfanumerički, bez I, O, Q)</li>
+        <li>Format validnosti</li>
+    </ul>
+
+    <h3>6.3 Parsiranje VIN Strukture</h3>
+    <p>Funkcija <code>parseVinStructure()</code> izdvaja:</p>
+    <ul>
+        <li>WMI (pozicije 1-3)</li>
+        <li>Model kod (pozicije 4-5)</li>
+        <li>Tip vozila (pozicija 6)</li>
+        <li>Godinu proizvodnje (pozicija 10)</li>
+    </ul>
+
+    <h3>6.4 Detekcija Modela</h3>
+    <p>Funkcija <code>detectModelFromVin()</code> koristi prioritetni sistem:</p>
+    
+    <h4>Prioritet 1: Strukturno prepoznavanje sa model kodom</h4>
+    <p>Najpreciznije - kombinuje WMI + model kod + poziciju 6 + godinu</p>
+    <p>Primer: WBA + VF + pozicija 6 (1 ili 3) + godina (2005-2012) = E90</p>
+
+    <h4>Prioritet 2: Specifični pattern matching</h4>
+    <p>Regex patterni za specifične kombinacije (npr. VF kod za E90)</p>
+
+    <h4>Prioritet 3: Strukturno prepoznavanje bez model koda</h4>
+    <p>WMI + pozicija 6 + godina proizvodnje</p>
+
+    <h4>Prioritet 4: Opšti pattern matching</h4>
+    <p>Najniži prioritet - opšti regex patterni</p>
+
+    <h3>6.5 VIN Model Mapa</h3>
+    <p><code>vinModelMap</code> objekat sadrži pravila za svaki model:</p>
+    <pre>
+{
+  E90: [
+    { wmi: 'WBA', modelCode: 'VF', years: [2005, 2012] },
+    { pattern: /^WBAVF[0-9A-Z]{5}/ },
+    ...
+  ],
+  E30: [
+    { wmi: 'WBA', pos6: ['1', '3'], years: [1982, 1994] },
+    { pattern: /^WBA(?!VF)[A-Z0-9]{2}[A-Z0-9]{2}[13][0-9]{2}/ },
+    ...
+  ],
+  ...
+}
+    </pre>
+
+    <h3>6.6 Integracija sa Bimmer.work</h3>
+    <p>Aplikacija pokušava da koristi bimmer.work API za dekodiranje:</p>
+    <ul>
+        <li>Pokušava direktnu integraciju (može imati CORS probleme)</li>
+        <li>Parsira JSON ili HTML odgovor</li>
+        <li>Izdvaja model iz odgovora</li>
+        <li>Rezervna opcija na lokalno dekodiranje ako API ne radi</li>
+        <li>Dugme za otvaranje bimmer.work sajta sa VIN brojem</li>
+    </ul>
+
+    <h3>6.7 Automatsko Postavljanje Filtera</h3>
+    <p>Nakon uspešnog dekodiranja VIN broja:</p>
+    <ul>
+        <li>Postavlja se <code>state.selectedModel</code></li>
+        <li>Ažuriraju se filteri za modele (<code>buildModelFilters()</code>)</li>
+        <li>Ažuriraju se kategorije (<code>buildCategories()</code>)</li>
+        <li>Renderuju se proizvodi samo za prepoznati model</li>
+        <li>Prikazuje se poruka sa informacijama o modelu</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2 id="korpa-checkout">7. Korpa i Proces Naplate</h2>
+    
+    <h3>7.1 Funkcionalnosti Korpe</h3>
+    
+    <h4>7.1.1 Dodavanje u Korpu</h4>
+    <p>Funkcija <code>addToCart(productId)</code>:</p>
+    <ul>
+        <li>Proverava da li proizvod već postoji u korpi</li>
+        <li>Ako postoji, povećava količinu</li>
+        <li>Ako ne postoji, dodaje novu stavku</li>
+        <li>Ažurira localStorage</li>
+        <li>Prikazuje korpu ponovo</li>
+    </ul>
+
+    <h4>7.1.2 Promena Količine</h4>
+    <p>Funkcija <code>changeQuantity(productId, delta)</code>:</p>
+    <ul>
+        <li>Povećava ili smanjuje količinu za određenu vrednost</li>
+        <li>Proverava da li je količina veća od 0</li>
+        <li>Ako je količina 0, uklanja stavku</li>
+        <li>Ažurira localStorage i prikazuje korpu</li>
+    </ul>
+
+    <h4>7.1.3 Uklanjanje iz Korpe</h4>
+    <p>Funkcija <code>removeFromCart(productId)</code>:</p>
+    <ul>
+        <li>Uklanja stavku iz korpe</li>
+        <li>Ažurira localStorage</li>
+        <li>Prikazuje korpu ponovo</li>
+    </ul>
+
+    <h4>7.1.4 Renderovanje Korpe</h4>
+    <p>Funkcija <code>renderCart()</code>:</p>
+    <ul>
+        <li>Učitava korpu iz localStorage</li>
+        <li>Za svaku stavku učitava podatke proizvoda</li>
+        <li>Kalkuliše ukupnu cenu</li>
+        <li>Prikazuje broj stavki u korpi</li>
+        <li>Aktivira/Deaktivira dugme za naplatu</li>
+    </ul>
+
+    <h3>7.2 Stranica za Naplatu</h3>
+    
+    <h4>7.2.1 Struktura Forme</h4>
+    <p>Forma za naplatu sadrži sledeće sekcije:</p>
+    <ul>
+        <li><strong>Lični podaci:</strong> Ime, Prezime, Email, Telefon</li>
+        <li><strong>Adresa isporuke:</strong> Ulica, Grad, Poštanski broj, Država</li>
+        <li><strong>Način plaćanja:</strong> Gotovina, Kartica, Bankovni transfer</li>
+        <li><strong>Napomena:</strong> Opcioni tekst za dodatne instrukcije</li>
+    </ul>
+
+    <h4>7.2.2 Validacija</h4>
+    <ul>
+        <li>HTML5 validacija za obavezna polja</li>
+        <li>Validacija formata emaila</li>
+        <li>Provera da korpa nije prazna</li>
+    </ul>
+
+    <h4>7.2.3 Proces Slanja Porudžbine</h4>
+    <p>Funkcija <code>handleSubmit()</code>:</p>
+    <ol>
+        <li>Preuzima podatke iz forme</li>
+        <li>Kreira objekat porudžbine sa svim podacima</li>
+        <li>Dodaje vremensku oznaku</li>
+        <li>Čuva porudžbinu u localStorage pod ključem 'bmwOrders'</li>
+        <li>Briše korpu iz localStorage</li>
+        <li>Prikazuje poruku o uspešnoj porudžbini</li>
+        <li>Preusmerava na glavnu stranicu</li>
+    </ol>
+
+    <h4>7.2.4 Pregled Porudžbine</h4>
+    <p>Stranica za naplatu prikazuje:</p>
+    <ul>
+        <li>Listu stavki iz korpe sa količinama</li>
+        <li>Međuzbir (bez dostave)</li>
+        <li>Cenu dostave (€15.00)</li>
+        <li>Ukupnu cenu</li>
+        <li>Informacije o isporuci i garanciji</li>
+    </ul>
+
+    <h2 id="ui-ux">8. Komponente Korisničkog Interfejsa i Iskustva</h2>
+    
+    <h3>8.1 Dizajn Sistem</h3>
+    
+    <h4>8.1.1 Boje</h4>
+    <ul>
+        <li><strong>Primarna:</strong> Cyan (#7DF9FF) - akcenti, dugmad</li>
+        <li><strong>Pozadina:</strong> Tamno plava (#0B0F21) - glavna pozadina</li>
+        <li><strong>Surface:</strong> Svetlija tamna (#1A1F3A) - kartice, paneli</li>
+        <li><strong>Tekst:</strong> Bela (#FFFFFF) - glavni tekst</li>
+        <li><strong>Muted:</strong> Svetlo siva - sekundarni tekst</li>
+    </ul>
+
+    <h4>8.1.2 Tipografija</h4>
+    <ul>
+        <li><strong>Font:</strong> Space Grotesk (Google Fonts)</li>
+        <li><strong>Veličine:</strong> 0.85rem - 2.5rem</li>
+        <li><strong>Težine:</strong> 400 (regular), 500 (medium), 600 (semibold), 700 (bold)</li>
+    </ul>
+
+    <h4>8.1.3 Komponente</h4>
+    <ul>
+        <li><strong>Dugmad:</strong> Primary, Secondary, Ghost varijante</li>
+        <li><strong>Kartice:</strong> Kartice proizvoda, glavna kartica, kartica filtera</li>
+        <li><strong>Polja za unos:</strong> Pretraga, VIN unos, polja forme</li>
+        <li><strong>Prozor:</strong> Prozor sa detaljima proizvoda sa prekrivanjem</li>
+        <li><strong>Pills:</strong> Kategorije, modeli, brzi filteri</li>
+    </ul>
+
+    <h3>8.2 Animacije i Tranzicije</h3>
+    <ul>
+        <li><strong>Efekti prelaska:</strong> Transformacija, senka, prelazi boja</li>
+        <li><strong>Stanja učitavanja:</strong> Onemogućena dugmad tokom VIN provere</li>
+        <li><strong>Animacije prozora:</strong> Pojavljivanje/nestajanje sa efektom uvećanja</li>
+        <li><strong>Prelazak preko slike:</strong> Uvećanje na slikama proizvoda</li>
+    </ul>
+
+    <h3>8.3 Korisničko Iskustvo</h3>
+    <ul>
+        <li><strong>Povratna informacija:</strong> Vizuelna povratna informacija za sve akcije</li>
+        <li><strong>Stanja učitavanja:</strong> Indikatori tokom VIN provere</li>
+        <li><strong>Rukovanje greškama:</strong> Jasne poruke o greškama</li>
+        <li><strong>Poruke o uspehu:</strong> Potvrde za uspešne akcije</li>
+        <li><strong>Prazna stanja:</strong> Poruke kada je korpa prazna</li>
+    </ul>
+
+    <h2 id="responsive">9. Responzivni Dizajn</h2>
+    
+    <h3>9.1 Strategija Prelomnih Tačaka</h3>
+    <table>
+        <tr>
+            <th>Prelomna Tačka</th>
+            <th>Širina</th>
+            <th>Primena</th>
+        </tr>
+        <tr>
+            <td>Mobilni</td>
+            <td>&lt; 768px</td>
+            <td>Jedna kolona, vertikalni raspored, mobilni meni</td>
+        </tr>
+        <tr>
+            <td>Tablet</td>
+            <td>768px - 1024px</td>
+            <td>Dve kolone, prilagođena mreža</td>
+        </tr>
+        <tr>
+            <td>Desktop</td>
+            <td>&gt; 1024px</td>
+            <td>Puna širina, mrežni raspored, fiksna bočna traka</td>
+        </tr>
+    </table>
+
+    <h3>9.2 Responzivne Komponente</h3>
+    
+    <h4>9.2.1 Glavna Sekcija</h4>
+    <ul>
+        <li>Mobilni: Vertikalni raspored, kartice jedna ispod druge</li>
+        <li>Desktop: Horizontalni raspored, jedna pored druge</li>
+    </ul>
+
+    <h4>9.2.2 Filteri</h4>
+    <ul>
+        <li>Mobilni: Puna širina, filter grupe jedna ispod druge</li>
+        <li>Desktop: Organizovani u karticu filtera sa grupama</li>
+    </ul>
+
+    <h4>9.2.3 Mreža Proizvoda</h4>
+    <ul>
+        <li>Mobilni: 1 kolona</li>
+        <li>Tablet: 2 kolone</li>
+        <li>Desktop: 3-4 kolone (automatsko popunjavanje sa minmax)</li>
+    </ul>
+
+    <h4>9.2.4 Korpa</h4>
+    <ul>
+        <li>Mobilni: Puna širina, na dnu stranice</li>
+        <li>Desktop: Fiksna bočna traka, 320px širine</li>
+    </ul>
+
+    <h4>9.2.5 Naplata</h4>
+    <ul>
+        <li>Mobilni: Vertikalni raspored, forma ispod pregleda</li>
+        <li>Desktop: Jedna pored druge, forma levo, pregled desno</li>
+    </ul>
+
+    <hr style="margin-top: 50px; border: none; border-top: 2px solid #0066cc;">
+    
+    <p style="text-align: center; color: #666; margin-top: 30px;">
+        <strong>Dokumentacija verzija 1.0</strong><br>
+        BMW Performance Store - Web Prodavnica<br>
+        <b><i>Mihailo Mihailović IV1n</i></b>
+    </p>
+
+</body>
+</html>
