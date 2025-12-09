@@ -10,7 +10,7 @@ const products = [
     category: 'Motor',
     model: 'E30',
     description: 'Stezna obruč, 2 komada, D=7MM',
-    image: 'slike/07149139223.jpg',
+    image: '07149139223.jpg',
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const products = [
     category: 'Motor',
     model: 'E30',
     description: 'Držač kablova, 2 komada, D=7MM',
-    image: 'slike/61131379359.jpg',
+    image: '61131379359.jpg',
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const products = [
     category: 'Motor',
     model: 'E30',
     description: 'Lambda sonda, 1 komad',
-    image: 'slike/11781310838.jpg',
+    image: '11781310838.jpg',
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const products = [
     category: 'Motor',
     model: 'E30',
     description: 'Ispušni kolektor, 42X2 + KAT, 1 komad',
-    image: 'slike/11621308805.jpg',
+    image: '11621308805.jpg',
   },
   {
     id: 5,
@@ -50,7 +50,7 @@ const products = [
     category: 'Motor',
     model: 'E30',
     description: 'Šestougaoni vijak M10X45, 3 komada',
-    image: 'slike/07119913855.jpg',
+    image: '07119913855.jpg',
   },
   {
     id: 6,
@@ -60,7 +60,7 @@ const products = [
     category: 'Motor',
     model: 'E30',
     description: 'Brtva bez azbesta, 4 komada',
-    image: 'slike/11621312992.jpg',
+    image: '11621312992.jpg',
   },
   {
     id: 7,
@@ -70,7 +70,7 @@ const products = [
     category: 'Motor',
     model: 'E30',
     description: 'Šestougaona matica M10, 3 komada',
-    image: 'slike/18301737774.jpg',
+    image: '18301737774.jpg',
   },
   {
     id: 8,
@@ -80,7 +80,7 @@ const products = [
     category: 'Motor',
     model: 'E30',
     description: 'Zaptivni čep CM8X1, 4 komada',
-    image: 'slike/07119919210.jpg',
+    image: '07119919210.jpg',
   },
   {
     id: 9,
@@ -90,7 +90,7 @@ const products = [
     category: 'Kočnice',
     model: 'E46',
     description: 'Prednji kočioni disk, ventilirani, 325mm',
-    image: 'slike/34111153517.jpg',
+    image: '34111153517.jpg',
   },
   {
     id: 10,
@@ -100,7 +100,7 @@ const products = [
     category: 'Kočnice',
     model: 'E46',
     description: 'Komplet prednjih kočionih pločica',
-    image: 'slike/34111153518.jpg',
+    image: '34111153518.jpg',
   },
   {
     id: 11,
@@ -110,7 +110,7 @@ const products = [
     category: 'Eksterijer',
     model: 'E90',
     description: 'Prednji branik, OEM, bez boje',
-    image: 'slike/51218244521.jpg',
+    image: '51218244521.jpg',
   },
   {
     id: 12,
@@ -120,7 +120,7 @@ const products = [
     category: 'Eksterijer',
     model: 'E90',
     description: 'Zadnji branik, OEM, bez boje',
-    image: 'slike/51218244522.jpg',
+    image: '51218244522.jpg',
   },
   {
     id: 13,
@@ -130,7 +130,7 @@ const products = [
     category: 'Elektronika',
     model: 'E91',
     description: 'Komplet Xenon farova, levi i desni, OEM',
-    image: 'slike/61319238765.jpg',
+    image: '61319238765.jpg',
   },
   {
     id: 14,
@@ -140,7 +140,7 @@ const products = [
     category: 'Enterijer',
     model: 'E92',
     description: 'Volan, koža, sa M logotipom',
-    image: 'slike/32302229781.jpg',
+    image: '32302229781.jpg',
   },
   {
     id: 15,
@@ -150,7 +150,7 @@ const products = [
     category: 'Eksterijer',
     model: 'E92',
     description: 'Spoljašnja kvaka vrata, leva prednja',
-    image: 'slike/51418050689.jpg',
+    image: '51418050689.jpg',
   },
   {
     id: 16,
@@ -160,7 +160,7 @@ const products = [
     category: 'Servis',
     model: 'F80',
     description: 'Filter ulja, OEM, za S55 motor',
-    image: 'slike/11427837840.jpg',
+    image: '11427837840.jpg',
   },
   {
     id: 17,
@@ -170,7 +170,7 @@ const products = [
     category: 'Servis',
     model: 'F80',
     description: 'Filter vazduha, OEM, za S55 motor',
-    image: 'slike/11427837841.jpg',
+    image: '11427837841.jpg',
   },
   {
     id: 18,
@@ -180,7 +180,7 @@ const products = [
     category: 'Performanse',
     model: 'F87',
     description: 'Felna 19", M2 Competition, Jet Black',
-    image: 'slike/36112284997.jpg',
+    image: '36112284997.jpg',
     tag: 'Top izbor',
   },
   {
@@ -191,7 +191,7 @@ const products = [
     category: 'Performanse',
     model: 'F87',
     description: 'Felna 19", M2 Competition, Jet Black',
-    image: 'slike/36112284998.jpg',
+    image: '36112284998.jpg',
   },
   {
     id: 20,
@@ -201,7 +201,7 @@ const products = [
     category: 'Motor',
     model: 'G80',
     description: 'Svećica, OEM, za S58 motor, 6 komada',
-    image: 'slike/11427837842.jpg',
+    image: '11427837842.jpg',
   },
   {
     id: 21,
@@ -211,7 +211,7 @@ const products = [
     category: 'Motor',
     model: 'G80',
     description: 'Kalem za paljenje, OEM, za S58 motor, 6 komada',
-    image: 'slike/11427837843.jpg',
+    image: '11427837843.jpg',
   },
   {
     id: 22,
@@ -221,7 +221,7 @@ const products = [
     category: 'Eksterijer',
     model: 'G80',
     description: 'Bubrežasta rešetka, M3, crna',
-    image: 'slike/51418050690.jpg',
+    image: '51418050690.jpg',
     tag: 'Novo',
   },
   {
@@ -232,7 +232,7 @@ const products = [
     category: 'Enterijer',
     model: 'E60',
     description: 'Ručica menjača, koža, sa M logotipom',
-    image: 'slike/32302229782.jpg',
+    image: '32302229782.jpg',
   },
   {
     id: 24,
@@ -242,7 +242,7 @@ const products = [
     category: 'Eksterijer',
     model: 'E28',
     description: 'Spoljašnji retrovizor, levi, električni',
-    image: 'slike/51418050691.jpg',
+    image: '51418050691.jpg',
   },
   {
     id: 25,
@@ -252,7 +252,7 @@ const products = [
     category: 'Kočnice',
     model: 'E46',
     description: 'Kočiona čeljust, prednja, leva',
-    image: 'slike/34111153519.jpg',
+    image: '34111153519.jpg',
   },
   {
     id: 26,
@@ -262,7 +262,7 @@ const products = [
     category: 'Elektronika',
     model: 'E91',
     description: 'Zadnje svetlo, levo, LED',
-    image: 'slike/61319238767.jpg',
+    image: '61319238767.jpg',
   },
   {
     id: 27,
@@ -272,7 +272,7 @@ const products = [
     category: 'Enterijer',
     model: 'E92',
     description: 'Presvlaka sedišta, koža, crna, prednja leva',
-    image: 'slike/32302229783.jpg',
+    image: '32302229783.jpg',
   },
 ]
 
