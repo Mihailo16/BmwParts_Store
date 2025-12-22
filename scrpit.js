@@ -283,6 +283,8 @@ const state = {
   cart: [],
   selectedModel: null,
   quickFilter: null,
+  discountCode: null,
+  discountPercent: 0,
 }
 
 const elements = {
@@ -297,6 +299,9 @@ const elements = {
   checkoutBtn: document.getElementById('checkoutBtn'),
   newsletterForm: document.getElementById('newsletterForm'),
   year: document.getElementById('year'),
+  discountCodeInput: document.getElementById('discountCodeInput'),
+  applyDiscountBtn: document.getElementById('applyDiscountBtn'),
+  discountMessage: document.getElementById('discountMessage'),
   vinInput: document.getElementById('vinInput'),
   vinCheckBtn: document.getElementById('vinCheckBtn'),
   vinBimmerWorkBtn: document.getElementById('vinBimmerWorkBtn'),
@@ -984,8 +989,47 @@ const renderCart = () => {
     )
     .join('') || '<p>Dodaj delove kako bi zaključio ponudu.</p>'
 
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const hasItemsWithoutPrice = cartItems.some((item) => item.price === 0)
+  
+  let total = subtotal
+  let discountAmount = 0
+  
+  if (state.discountPercent > 0 && !hasItemsWithoutPrice) {
+    discountAmount = subtotal * (state.discountPercent / 100)
+    total = subtotal - discountAmount
+  }
+  
+  if (state.discountPercent > 0 && !hasItemsWithoutPrice && discountAmount > 0) {
+    const totalElement = elements.cartTotal.parentElement
+    if (!totalElement.querySelector('.discount-info')) {
+      const discountInfo = document.createElement('div')
+      discountInfo.className = 'discount-info'
+      discountInfo.innerHTML = `
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+          Međuzbir: ${formatPrice(subtotal)}<br>
+          Popust (${state.discountPercent}%): -${formatPrice(discountAmount)}<br>
+          <strong style="color: var(--text);">Ukupno: ${formatPrice(total)}</strong>
+        </p>
+      `
+      totalElement.appendChild(discountInfo)
+    } else {
+      const discountInfo = totalElement.querySelector('.discount-info')
+      discountInfo.innerHTML = `
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+          Međuzbir: ${formatPrice(subtotal)}<br>
+          Popust (${state.discountPercent}%): -${formatPrice(discountAmount)}<br>
+          <strong style="color: var(--text);">Ukupno: ${formatPrice(total)}</strong>
+        </p>
+      `
+    }
+  } else {
+    const discountInfo = elements.cartTotal.parentElement.querySelector('.discount-info')
+    if (discountInfo) {
+      discountInfo.remove()
+    }
+  }
+  
   elements.cartTotal.textContent = hasItemsWithoutPrice ? 'Cena na upit' : formatPrice(total)
   elements.checkoutBtn.disabled = !cartItems.length
   
@@ -1037,6 +1081,40 @@ const buildQuickFilters = () => {
     <button class="pill ${state.quickFilter === 'novo' ? 'active' : ''}" data-quick-filter="novo">Novo</button>
     <button class="pill ${state.quickFilter === 'top' ? 'active' : ''}" data-quick-filter="top">Top izbor</button>
   `
+}
+
+const applyDiscount = () => {
+  const code = elements.discountCodeInput.value.trim()
+  
+  if (!code) {
+    elements.discountMessage.textContent = ''
+    elements.discountMessage.className = 'discount-message'
+    state.discountCode = null
+    state.discountPercent = 0
+    renderCart()
+    return
+  }
+  
+  const discountCodes = {
+    'Boca': 20,
+    'Mihailo': 70,
+  }
+  
+  const upperCode = code.charAt(0).toUpperCase() + code.slice(1).toLowerCase()
+  
+  if (discountCodes[upperCode]) {
+    state.discountCode = upperCode
+    state.discountPercent = discountCodes[upperCode]
+    elements.discountMessage.textContent = `✓ Popust od ${state.discountPercent}% primenjen!`
+    elements.discountMessage.className = 'discount-message success'
+    renderCart()
+  } else {
+    state.discountCode = null
+    state.discountPercent = 0
+    elements.discountMessage.textContent = '✗ Nevažeći kod za popust'
+    elements.discountMessage.className = 'discount-message error'
+    renderCart()
+  }
 }
 
 const resetFilters = () => {
@@ -1170,6 +1248,10 @@ const initEvents = () => {
     }
     localStorage.setItem('bmwCart', JSON.stringify(state.cart))
     localStorage.setItem('bmwProducts', JSON.stringify(products))
+    localStorage.setItem('bmwDiscount', JSON.stringify({
+      code: state.discountCode,
+      percent: state.discountPercent
+    }))
     window.location.href = 'checkout.html'
   })
 
@@ -1214,6 +1296,14 @@ const initEvents = () => {
   })
 
   elements.resetFiltersBtn.addEventListener('click', resetFilters)
+
+  elements.applyDiscountBtn.addEventListener('click', applyDiscount)
+  
+  elements.discountCodeInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      applyDiscount()
+    }
+  })
 
   elements.modalClose.addEventListener('click', closeProductModal)
 
