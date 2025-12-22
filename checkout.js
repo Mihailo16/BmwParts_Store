@@ -60,11 +60,56 @@ const renderCheckoutItems = () => {
     )
     .join('')
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  let subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const shipping = 15
+  
+  const discountData = localStorage.getItem('bmwDiscount')
+  let discountPercent = 0
+  let discountAmount = 0
+  
+  if (discountData) {
+    try {
+      const discount = JSON.parse(discountData)
+      discountPercent = discount.percent || 0
+      if (discountPercent > 0) {
+        discountAmount = subtotal * (discountPercent / 100)
+        subtotal = subtotal - discountAmount
+      }
+    } catch (e) {
+      console.error('Greška pri učitavanju popusta:', e)
+    }
+  }
+  
   const total = subtotal + shipping
 
-  document.getElementById('subtotal').textContent = formatPrice(subtotal)
+  document.getElementById('subtotal').textContent = formatPrice(subtotal + discountAmount)
+  if (discountPercent > 0) {
+    const summaryEl = document.querySelector('.checkout-summary')
+    const existingDiscount = summaryEl.querySelector('.discount-row')
+    if (!existingDiscount) {
+      const discountRow = document.createElement('div')
+      discountRow.className = 'discount-row'
+      discountRow.innerHTML = `
+        <div>
+          <p>Popust (${discountPercent}%)</p>
+        </div>
+        <div>
+          <p>-${formatPrice(discountAmount)}</p>
+        </div>
+      `
+      const subtotalEl = document.getElementById('subtotal').closest('.checkout-summary-row')
+      subtotalEl.after(discountRow)
+    } else {
+      existingDiscount.innerHTML = `
+        <div>
+          <p>Popust (${discountPercent}%)</p>
+        </div>
+        <div>
+          <p>-${formatPrice(discountAmount)}</p>
+        </div>
+      `
+    }
+  }
   document.getElementById('shipping').textContent = formatPrice(shipping)
   document.getElementById('total').textContent = formatPrice(total)
 }
