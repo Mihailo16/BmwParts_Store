@@ -73,16 +73,16 @@ const renderCheckoutItems = () => {
       discountPercent = discount.percent || 0
       if (discountPercent > 0) {
         discountAmount = subtotal * (discountPercent / 100)
-        subtotal = subtotal - discountAmount
       }
     } catch (e) {
       console.error('Greška pri učitavanju popusta:', e)
     }
   }
   
-  const total = subtotal + shipping
+  const subtotalAfterDiscount = subtotal - discountAmount
+  const total = subtotalAfterDiscount + shipping
 
-  document.getElementById('subtotal').textContent = formatPrice(subtotal + discountAmount)
+  document.getElementById('subtotal').textContent = formatPrice(subtotal)
   if (discountPercent > 0) {
     const summaryEl = document.querySelector('.checkout-summary')
     const existingDiscount = summaryEl.querySelector('.discount-row')
@@ -111,7 +111,10 @@ const renderCheckoutItems = () => {
     }
   }
   document.getElementById('shipping').textContent = formatPrice(shipping)
-  document.getElementById('total').textContent = formatPrice(total)
+  const totalEl = document.getElementById('total')
+  if (totalEl) {
+    totalEl.textContent = formatPrice(total)
+  }
 }
 
 const handleSubmit = (event) => {
